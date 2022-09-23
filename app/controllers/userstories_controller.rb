@@ -1,0 +1,2 @@
+class UserstoriesController < ApplicationController
+end

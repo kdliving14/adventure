@@ -1,0 +1,186 @@
+  [1m[35m (231.8ms)[0m  [1m[35mCREATE DATABASE "adventure_development" ENCODING = 'unicode'[0m
+  [1m[35m (117.4ms)[0m  [1m[35mCREATE DATABASE "adventure_test" ENCODING = 'unicode'[0m
+  [1m[35m (47.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (44.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(6996227860383944385)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20220923162245)
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (45.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "username" character varying, "password_digest" character varying, "name" character varying, "image_url" character varying, "left_off" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220923162245"]]
+  [1m[36mTRANSACTION (65.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateStories (20220923162349)
+  [1m[36mTRANSACTION (40.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.1ms)[0m  [1m[35mCREATE TABLE "stories" ("id" bigserial primary key, "name" character varying, "description" text, "image_url" character varying, "trigger_warnings" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220923162349"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUserstories (20220923162447)
+  [1m[36mTRANSACTION (42.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (4.9ms)[0m  [1m[35mCREATE TABLE "userstories" ("id" bigserial primary key, "user_id" bigint NOT NULL, "story_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_2c4c17baf5"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_05c4ce7f59"
+FOREIGN KEY ("story_id")
+  REFERENCES "stories" ("id")
+)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_userstories_on_user_id" ON "userstories" ("user_id")[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_userstories_on_story_id" ON "userstories" ("story_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220923162447"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateEvents (20220923162623)
+  [1m[36mTRANSACTION (41.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.9ms)[0m  [1m[35mCREATE TABLE "events" ("id" bigserial primary key, "story_id" bigint NOT NULL, "name" character varying, "short_description" text, "long_description" text, "image_url" character varying, "sound_effect" character varying, "delay" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_986bef1da6"
+FOREIGN KEY ("story_id")
+  REFERENCES "stories" ("id")
+)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE INDEX "index_events_on_story_id" ON "events" ("story_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220923162623"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateItems (20220923162725)
+  [1m[36mTRANSACTION (39.8ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE TABLE "items" ("id" bigserial primary key, "event_id" bigint NOT NULL, "name" character varying, "description" character varying, "image_url" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_7c292ae2fe"
+FOREIGN KEY ("event_id")
+  REFERENCES "events" ("id")
+)[0m
+  [1m[35m (0.8ms)[0m  [1m[35mCREATE INDEX "index_items_on_event_id" ON "items" ("event_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220923162725"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateInventories (20220923162814)
+  [1m[36mTRANSACTION (41.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.1ms)[0m  [1m[35mCREATE TABLE "inventories" ("id" bigserial primary key, "userstory_id" bigint NOT NULL, "item_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_044b16dcb8"
+FOREIGN KEY ("userstory_id")
+  REFERENCES "userstories" ("id")
+, CONSTRAINT "fk_rails_fcf6633a1e"
+FOREIGN KEY ("item_id")
+  REFERENCES "items" ("id")
+)[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE INDEX "index_inventories_on_userstory_id" ON "inventories" ("userstory_id")[0m
+  [1m[35m (0.7ms)[0m  [1m[35mCREATE INDEX "index_inventories_on_item_id" ON "inventories" ("item_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220923162814"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateChoices (20220923162917)
+  [1m[36mTRANSACTION (40.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "choices" ("id" bigserial primary key, "event_id" bigint NOT NULL, "content" character varying, "image_url" character varying, "item_needed" integer, "next_event_id" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_f20c58e1e4"
+FOREIGN KEY ("event_id")
+  REFERENCES "events" ("id")
+)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_choices_on_event_id" ON "choices" ("event_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220923162917"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateUserchoices (20220923163010)
+  [1m[36mTRANSACTION (44.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.5ms)[0m  [1m[35mCREATE TABLE "userchoices" ("id" bigserial primary key, "user_id" bigint NOT NULL, "event_id" bigint NOT NULL, "choice_id" bigint NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL, CONSTRAINT "fk_rails_d7d31ea9ae"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_fa0bc024c7"
+FOREIGN KEY ("event_id")
+  REFERENCES "events" ("id")
+, CONSTRAINT "fk_rails_cba192457b"
+FOREIGN KEY ("choice_id")
+  REFERENCES "choices" ("id")
+)[0m
+  [1m[35m (0.9ms)[0m  [1m[35mCREATE INDEX "index_userchoices_on_user_id" ON "userchoices" ("user_id")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE INDEX "index_userchoices_on_event_id" ON "userchoices" ("event_id")[0m
+  [1m[35m (1.0ms)[0m  [1m[35mCREATE INDEX "index_userchoices_on_choice_id" ON "userchoices" ("choice_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20220923163010"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-09-23 16:31:11.490802"], ["updated_at", "2022-09-23 16:31:11.490802"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(6996227860383944385)[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mUserchoice Load (0.7ms)[0m  [1m[34mSELECT "userchoices".* FROM "userchoices"[0m
+  [1m[36mUserstory Load (0.6ms)[0m  [1m[34mSELECT "userstories".* FROM "userstories"[0m
+  [1m[36mInventory Load (0.6ms)[0m  [1m[34mSELECT "inventories".* FROM "inventories"[0m
+  [1m[36mChoice Load (0.6ms)[0m  [1m[34mSELECT "choices".* FROM "choices"[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mStory Load (0.5ms)[0m  [1m[34mSELECT "stories".* FROM "stories"[0m
+  [1m[36mEvent Load (0.5ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  [1m[36mItem Load (0.6ms)[0m  [1m[34mSELECT "items".* FROM "items"[0m
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mUserchoice Load (0.7ms)[0m  [1m[34mSELECT "userchoices".* FROM "userchoices"[0m
+  [1m[36mUserstory Load (0.6ms)[0m  [1m[34mSELECT "userstories".* FROM "userstories"[0m
+  [1m[36mInventory Load (0.6ms)[0m  [1m[34mSELECT "inventories".* FROM "inventories"[0m
+  [1m[36mChoice Load (0.4ms)[0m  [1m[34mSELECT "choices".* FROM "choices"[0m
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mStory Load (0.5ms)[0m  [1m[34mSELECT "stories".* FROM "stories"[0m
+  [1m[36mEvent Load (0.6ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  [1m[36mItem Load (0.5ms)[0m  [1m[34mSELECT "items".* FROM "items"[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Create (2.7ms)[0m  [1m[32mINSERT INTO "users" ("username", "password_digest", "name", "image_url", "left_off", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["username", "K"], ["password_digest", "[FILTERED]"], ["name", "Karter"], ["image_url", ""], ["left_off", 0], ["created_at", "2022-09-23 16:42:40.426138"], ["updated_at", "2022-09-23 16:42:40.426138"]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mStory Create (0.5ms)[0m  [1m[32mINSERT INTO "stories" ("name", "description", "image_url", "trigger_warnings", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "The Horror™"], ["description", "You are home alone in your home in the middle of nowhere, when the lights go out. You hear a scraping at the door. Gather items, make choices and see if you survive the night."], ["image_url", ""], ["trigger_warnings", "gore, stalking, and other horror elements"], ["created_at", "2022-09-23 16:42:40.445642"], ["updated_at", "2022-09-23 16:42:40.445642"]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mStory Load (0.2ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUserstory Create (41.9ms)[0m  [1m[32mINSERT INTO "userstories" ("user_id", "story_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["user_id", 1], ["story_id", 1], ["created_at", "2022-09-23 16:42:40.483146"], ["updated_at", "2022-09-23 16:42:40.483146"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mStory Load (0.3ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEvent Create (0.8ms)[0m  [1m[32mINSERT INTO "events" ("story_id", "name", "short_description", "long_description", "image_url", "sound_effect", "delay", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["story_id", 1], ["name", "May 13, 1980, 7pm"], ["short_description", "After your best friend leaves, you sit alone in your empty home and hear a scraping sound at the door."], ["long_description", "Usually the rain would be calming, but tonight you are alone in the house again against your better judgement. \n    The house is otherwise quiet and it reminds you that you are in the middle of nowhere with no neighbors around for miles. \n    No one would be able to hear you scream. \n\n    \n \n    Sitting on the couch in the living room, you curl up with a blanket and book and try to read. \n\n    \n \n    You hear a scraping sound at the door."], ["image_url", ""], ["sound_effect", ""], ["delay", 5], ["created_at", "2022-09-23 16:42:40.547791"], ["updated_at", "2022-09-23 16:42:40.547791"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mStory Load (0.2ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEvent Create (0.7ms)[0m  [1m[32mINSERT INTO "events" ("story_id", "name", "short_description", "long_description", "image_url", "sound_effect", "delay", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["story_id", 1], ["name", "A cautious investigation of the scraping at the door"], ["short_description", "You look out the window to see nothing but now the scraping is at the window you were just looking out of."], ["long_description", ""], ["image_url", ""], ["sound_effect", ""], ["delay", 5], ["created_at", "2022-09-23 16:42:40.572958"], ["updated_at", "2022-09-23 16:42:40.572958"]]
+  [1m[36mTRANSACTION (39.8ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mStory Load (0.5ms)[0m  [1m[34mSELECT "stories".* FROM "stories" WHERE "stories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEvent Create (0.4ms)[0m  [1m[32mINSERT INTO "events" ("story_id", "name", "short_description", "long_description", "image_url", "sound_effect", "delay", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["story_id", 1], ["name", "Bad End 1: An Unfortunate End"], ["short_description", "You died"], ["long_description", "Unfortunately now wasn't the time to be brave. Try again?"], ["image_url", ""], ["sound_effect", ""], ["delay", 0], ["created_at", "2022-09-23 16:42:40.620380"], ["updated_at", "2022-09-23 16:42:40.620380"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mEvent Load (0.3ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mChoice Create (1.0ms)[0m  [1m[32mINSERT INTO "choices" ("event_id", "content", "image_url", "item_needed", "next_event_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["event_id", 1], ["content", "Investigate the sound by looking out the window?"], ["image_url", ""], ["item_needed", 0], ["next_event_id", 2], ["created_at", "2022-09-23 16:42:40.642934"], ["updated_at", "2022-09-23 16:42:40.642934"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mChoice Create (0.3ms)[0m  [1m[32mINSERT INTO "choices" ("event_id", "content", "image_url", "item_needed", "next_event_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["event_id", 1], ["content", "Investigate the sound by opening the door?"], ["image_url", ""], ["item_needed", 0], ["next_event_id", 3], ["created_at", "2022-09-23 16:42:40.648757"], ["updated_at", "2022-09-23 16:42:40.648757"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mItem Create (1.0ms)[0m  [1m[32mINSERT INTO "items" ("event_id", "name", "description", "image_url", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["event_id", 1], ["name", "Book"], ["description", "An interesting biography of Jodie Foster."], ["image_url", ""], ["created_at", "2022-09-23 16:42:40.658432"], ["updated_at", "2022-09-23 16:42:40.658432"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUserstory Load (0.2ms)[0m  [1m[34mSELECT "userstories".* FROM "userstories" WHERE "userstories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mItem Load (0.2ms)[0m  [1m[34mSELECT "items".* FROM "items" WHERE "items"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mInventory Create (1.1ms)[0m  [1m[32mINSERT INTO "inventories" ("userstory_id", "item_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["userstory_id", 1], ["item_id", 1], ["created_at", "2022-09-23 16:42:40.680460"], ["updated_at", "2022-09-23 16:42:40.680460"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEvent Load (0.4ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mChoice Load (0.2ms)[0m  [1m[34mSELECT "choices".* FROM "choices" WHERE "choices"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUserchoice Create (1.5ms)[0m  [1m[32mINSERT INTO "userchoices" ("user_id", "event_id", "choice_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", 1], ["event_id", 1], ["choice_id", 1], ["created_at", "2022-09-23 16:42:40.706563"], ["updated_at", "2022-09-23 16:42:40.706563"]]
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUserchoice Load (0.5ms)[0m  [1m[34mSELECT "userchoices".* FROM "userchoices" WHERE "userchoices"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mChoice Load (0.6ms)[0m  [1m[34mSELECT "choices".* FROM "choices" INNER JOIN "userchoices" ON "choices"."id" = "userchoices"."choice_id" WHERE "userchoices"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mEvent Load (0.5ms)[0m  [1m[34mSELECT "events".* FROM "events" INNER JOIN "userchoices" ON "events"."id" = "userchoices"."event_id" WHERE "userchoices"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mInventory Load (0.8ms)[0m  [1m[34mSELECT "inventories".* FROM "inventories" INNER JOIN "userstories" ON "inventories"."userstory_id" = "userstories"."id" WHERE "userstories"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mItem Load (0.5ms)[0m  [1m[34mSELECT "items".* FROM "items" INNER JOIN "inventories" ON "items"."id" = "inventories"."item_id" INNER JOIN "userstories" ON "inventories"."userstory_id" = "userstories"."id" WHERE "userstories"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mStory Load (0.7ms)[0m  [1m[34mSELECT "stories".* FROM "stories"[0m
+  [1m[36mStory Load (0.3ms)[0m  [1m[34mSELECT "stories".* FROM "stories" ORDER BY "stories"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mChoice Load (0.5ms)[0m  [1m[34mSELECT "choices".* FROM "choices" INNER JOIN "events" ON "choices"."event_id" = "events"."id" WHERE "events"."story_id" = $1[0m  [["story_id", 1]]
+  [1m[36mStory Load (0.3ms)[0m  [1m[34mSELECT "stories".* FROM "stories" ORDER BY "stories"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."story_id" = $1[0m  [["story_id", 1]]
+  [1m[36mEvent Load (0.2ms)[0m  [1m[34mSELECT "events".* FROM "events" ORDER BY "events"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mChoice Load (0.2ms)[0m  [1m[34mSELECT "choices".* FROM "choices" WHERE "choices"."event_id" = $1[0m  [["event_id", 1]]
+  [1m[36mEvent Load (0.3ms)[0m  [1m[34mSELECT "events".* FROM "events" ORDER BY "events"."id" ASC LIMIT $1 OFFSET $2[0m  [["LIMIT", 1], ["OFFSET", 1]]
+  [1m[36mChoice Load (0.2ms)[0m  [1m[34mSELECT "choices".* FROM "choices" WHERE "choices"."event_id" = $1[0m  [["event_id", 2]]
+  [1m[36mStory Load (0.3ms)[0m  [1m[34mSELECT "stories".* FROM "stories" ORDER BY "stories"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mEvent Load (0.3ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."story_id" = $1[0m  [["story_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mChoice Load (0.3ms)[0m  [1m[34mSELECT "choices".* FROM "choices" INNER JOIN "userchoices" ON "choices"."id" = "userchoices"."choice_id" WHERE "userchoices"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mStory Load (0.2ms)[0m  [1m[34mSELECT "stories".* FROM "stories" INNER JOIN "userstories" ON "stories"."id" = "userstories"."story_id" WHERE "userstories"."user_id" = $1[0m  [["user_id", 1]]
