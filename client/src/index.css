@@ -10,7 +10,7 @@ input {
 }
 
 button {
-  @apply font-bold text-white px-2 mx-5 my-5 border rounded-full
+  @apply font-bold text-white px-2 mx-1 my-5 border rounded-full
 }
 
 }

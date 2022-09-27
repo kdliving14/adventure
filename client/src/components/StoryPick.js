@@ -1,6 +1,5 @@
 import StoryCard from "./StoryCards"
 
-
 function StoryPick({stories}){
     return(<div>
         {stories.map((story)=>(

@@ -16,6 +16,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [stories, setStories] = useState([])
   const [inventory, setInventory] = useState([])
+  const [userchoices, setUserchoices] = useState([])
 
   const updateUser = (user) => setCurrentUser(user)
 
@@ -25,6 +26,7 @@ function App() {
     fetch("/me").then((res) => {if(res.ok){res.json().then((currentUser)=>setCurrentUser(currentUser))}})
     fetch("/stories").then((res)=>{if(res.ok){res.json().then((stories)=>setStories(stories))}})
     fetch("/inventories/:id").then((res)=>{if(res.ok){res.json().then((inventory)=>setInventory(inventory))}})
+    fetch("/userchoices").then((res)=>{if(res.ok){res.json().then((userchoices)=>setUserchoices(userchoices))}})
   }, []); 
 
   if (currentUser){
@@ -34,12 +36,12 @@ function App() {
               <Route path="/profile" element={<Profile currentUser={currentUser}/>}></Route>
               <Route path="/stories" element={<StoryPick stories={stories}/>}></Route>
               <Route path="/inventory" element={<Inventory inventory={inventory}/>}></Route>
-              <Route exact path="/" element={<Home currentUser={currentUser}/>}></Route>
+              <Route exact path="/" element={<Home currentUser={currentUser} userchoices={userchoices}/>}></Route>
         </Routes>
       </div>)
   }else{
     return (<div>
-      <button className="bg-black" onClick={()=>setLogsign(!logsign)}>{logsign ? "Signup": "Login"}</button>
+      <button color="dark" onClick={()=>setLogsign(!logsign)}>{logsign ? "Signup": "Login"}</button>
       {logsign ? <Login updateUser={updateUser} /> : <Signup updateUser={updateUser}/>}
     </div>)
   }
