@@ -1,6 +1,7 @@
 // import logo from './logo.svg';
 import {Route, Routes} from "react-router-dom";
 import {useEffect, useState} from "react";
+import { Button } from "flowbite-react";
 
 import Navbar from './components/Navbar';
 import Login from "./components/Login";
@@ -10,7 +11,7 @@ import Profile from "./components/Profile";
 import StoryPick from "./components/StoryPick";
 import Inventory from "./components/Inventory";
 
-import './App.css';
+// import './App.css';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -41,7 +42,7 @@ function App() {
       </div>)
   }else{
     return (<div>
-      <button color="dark" onClick={()=>setLogsign(!logsign)}>{logsign ? "Signup": "Login"}</button>
+      <Button size="md" onClick={()=>setLogsign(!logsign)}>{logsign ? "Signup": "Login"}</Button>
       {logsign ? <Login updateUser={updateUser} /> : <Signup updateUser={updateUser}/>}
     </div>)
   }

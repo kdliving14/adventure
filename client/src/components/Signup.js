@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {useNavigate} from "react-router-dom"
+import {Button} from "flowbite-react"
 
 function Signup({updateUser}){
 
@@ -26,8 +27,7 @@ function Signup({updateUser}){
         .then(res => {if(res.ok)
             { res.json().then(user => {
                 updateUser(user);
-                navigate(`/`)
-                })
+                navigate(`/`)})
             }
         })
         .catch(res => {setErrors(res.error); console.log(errors)})
@@ -38,9 +38,8 @@ function Signup({updateUser}){
         setFormData({ ...formData, [name]: value })
     }
 
-
     return(<div>
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="flex flex-col gap-1">
         <h1>Signup</h1>
         <label htmlFor="name">First Name: </label>
             <input 
@@ -68,7 +67,7 @@ function Signup({updateUser}){
             autoComplete="off"
             value={password}
             onChange={handleChange}/><br></br>
-        <button type="submit" className="bg-black">Submit</button>
+        <Button type="submit">Submit</Button>
     </form>    
     </div>)
 

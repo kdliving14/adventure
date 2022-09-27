@@ -1,5 +1,6 @@
 import UserChoices from "./UserChoices"
 import {useNavigate} from "react-router-dom"
+import {Button} from "flowbite-react"
 
 function Home({currentUser, userchoices}){
 
@@ -14,19 +15,27 @@ function Home({currentUser, userchoices}){
     }
 
     return(<div>
-        {currentUser.left_off === null ? null : <div> Your choices so far: 
+        <br></br>
+        {currentUser.left_off === null ? <Button onClick={handleNewStory}>Start a Story</Button> : <Button onClick={handleContinue}>Continue Story?</Button> }
+        
+        {currentUser.left_off === null ? null : <div> 
+            <br></br>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">Your choices so far:</h5>
                 <br></br>
-                <br></br>
+                
+                <div className="max-w-sm rounded-lg border shadow-md bg-gray-800 border-gray-700">
                 {userchoices.map((choice)=> (
                     <UserChoices
                         key= {choice.id}
                         event = {choice.event.short_description}
-                        choice = {choice.choice.content}/>
+                        choice = {choice.choice.content}
+                        image_url ={choice.choice.image_url}/>
                     ))} 
+                    </div>
             </div>}
         
             
-        {currentUser.left_off === null || currentUser.left_off === 0 ? <button className="bg-black" onClick={handleNewStory}>Start a Story</button> : <button className="bg-black" onClick={handleContinue}>Continue Story?</button> }
+        
     </div>)
 }
 
