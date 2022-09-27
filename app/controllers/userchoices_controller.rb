@@ -1,6 +1,6 @@
 class UserchoicesController < ApplicationController
     def index
-        render json: Userchoice.all 
+        render json: @current_user.userchoices
     end
 
     def show
