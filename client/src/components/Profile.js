@@ -1,9 +1,9 @@
-function Profile({currentUser}){
+function Profile({name, username, image_url}){
     return(<div>
         Profile!<br></br>
-        Name: {currentUser.name} <br></br>
-        Username: {currentUser.username} <br></br>
-        Image Url: {currentUser.image_url}
+        Name: {name} <br></br>
+        Username: {username} <br></br>
+        Image Url: {image_url}
         </div>)
 }
 

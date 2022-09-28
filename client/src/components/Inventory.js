@@ -2,6 +2,7 @@ import ItemCard from "./ItemCard"
 
 function Inventory({inventory}){
     return(<div>
+        <br></br>
         {inventory.map(item=>(
             <ItemCard 
                 key = {item.item.id}
