@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {useNavigate} from "react-router-dom"
+import {TextInput, Label, Button} from "flowbite-react"
 
 function LoginSignup({updateUser}) {
     const [username, setUsername] = useState("");
@@ -25,22 +26,29 @@ function LoginSignup({updateUser}) {
 
     return (
         <div>
-        <form onSubmit={handleSubmitLogin}>
+        <form onSubmit={handleSubmitLogin} className="flex flex-col gap-1">
             <h1>Login</h1>
-            <label htmlFor="username">Username: </label>
-                <input 
+            <div className="mb-2 block">
+            <Label htmlFor="username">Username: </Label>
+                <TextInput
                 type="text" 
                 name="username"
                 autoComplete="off"
+                required={true}
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}/><br></br>
-            <label>Password: </label>
-                <input type="password"
+                onChange={(e) => setUsername(e.target.value)}/>
+                </div>
+            <div className="mb-2 block">
+            <Label>Password: </Label>
+                <TextInput 
+                type="password"
                 name="password"
                 autoComplete="off"
+                required={true}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}/><br></br>
-            <button type="submit" className="bg-black">Login</button>
+                onChange={(e) => setPassword(e.target.value)}/>
+            </div>
+            <Button type="submit">Login</Button>
         </form>
       </div>
     )      

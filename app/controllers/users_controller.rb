@@ -14,11 +14,25 @@ class UsersController < ApplicationController
         render json: user
     end
 
+    def update
+        @current_user.update!(u_params)
+        render json: @current_user
+    end
+
+    def choose
+        user = @current_user
+        user.update!(c_param)
+        render json: @current_user
+    end
+
     private
 
     def u_params
         params.permit("username", "name", "password", "image_url")
     end
 
+    def c_param
+        params.permit("left_off")
+    end
 
 end

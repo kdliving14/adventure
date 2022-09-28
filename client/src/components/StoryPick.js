@@ -1,7 +1,9 @@
 import StoryCard from "./StoryCards"
 
 function StoryPick({stories}){
+
     return(<div>
+        <br></br>
         {stories.map((story)=>(
                 <StoryCard 
                 key = {story.id}
