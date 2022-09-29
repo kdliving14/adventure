@@ -13,14 +13,13 @@ function LoginSignup({updateUser}) {
         e.preventDefault();
 
         fetch("/login", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ username, password })
-        })
-        .then((r) => {
-        if (r.ok){r.json().then(user => {updateUser(user); 
-        navigate(`/`)
-        })}
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ username, password })
+            })
+            .then((r) => {
+            if (r.ok){r.json().then(user => {updateUser(user); 
+            navigate(`/`)})}
         })
     }
 

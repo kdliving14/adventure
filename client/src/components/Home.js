@@ -1,14 +1,19 @@
 import {useNavigate} from "react-router-dom"
-// import {useEffect, useState} from "react"
 
 import UserChoices from "./UserChoices"
+
 
 function Home({userchoices, left_off}){
 
     const navigate = useNavigate();
 
     function handleContinue(){
-
+        if(left_off===0){
+            navigate(`/events/1`)
+        }
+        else{
+            navigate(`/events/${left_off}`)
+        }
     }
 
     function handleNewStory(){
@@ -26,7 +31,6 @@ function Home({userchoices, left_off}){
             <br></br>
             <h5 className="mb-2 text-2xl font-bold tracking-tight">Your choices so far:</h5>
                 <br></br>
-                
                 <div className="w-56 m-5 rounded-lg border shadow-md bg-zinc-900 border-gray-700">
                 {userchoices.map((choice)=> (
                     <UserChoices
@@ -37,9 +41,6 @@ function Home({userchoices, left_off}){
                     ))} 
                     </div>
             </div>}
-        
-            
-        
     </div>)
 }
 

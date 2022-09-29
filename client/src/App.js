@@ -35,9 +35,9 @@ return(<div>
     <Navbar setCurrentUser={setCurrentUser} image={currentUser.image_url}/>
     <Routes>
           <Route path="/profile" element={<Profile name={currentUser.name} username={currentUser.username} image_url={currentUser.image_url}/>}></Route>
+          <Route path="/events/:id" element={<Chapter/>}></Route>
           <Route path="/stories" element={<StoryPick stories={stories} />}></Route>
           <Route path="/inventory" element={<Inventory inventory={inventory} />}></Route>
-          <Route path="/chapters" element={<Chapter/>}></Route>
           <Route exact path="/" element={<Home left_off= {currentUser.left_off} userchoices={userchoices}/>}></Route>
     </Routes>
   </div> 
@@ -83,25 +83,5 @@ return(<div>
 </footer>
 
 </div>)}
-//   if (currentUser){
-//     return (<div>
-//         <Navbar setCurrentUser={setCurrentUser} image={currentUser.image_url}/>
-//         <Routes>
-//               <Route path="/profile" element={<Profile currentUser={currentUser}/>}></Route>
-//               <Route path="/stories" element={<StoryPick stories={stories}/>}></Route>
-//               <Route path="/inventory" element={<Inventory inventory={inventory}/>}></Route>
-//               <Route exact path="/" element={<Home currentUser={currentUser} userchoices={userchoices}/>}></Route>
-//         </Routes>
-        
-//       </div>)
-//   }
-//   else {return(<div>
-//       <LogSign />
-//       <Routes>
-//               <Route path="/login" element={<Login updateUser={updateUser}/>}></Route>
-//               <Route path="/signup" element={<Signup updateUser={updateUser}/>}></Route>
-//         </Routes>
-//     </div>)}
-// }
 
 export default App;
