@@ -1,9 +1,17 @@
+import { useState, useEffect } from "react";
 import {useNavigate} from "react-router-dom"
 
 import UserChoices from "./UserChoices"
 
+function Home({left_off}){
 
-function Home({userchoices, left_off}){
+    const [userchoices, setUserchoices] = useState([])
+
+    useEffect(()=>{    
+        fetch("/userchoices").then((res) => {
+          if(res.ok){
+            res.json().then((userchoices)=>setUserchoices(userchoices))}})
+      }, []);
 
     const navigate = useNavigate();
 

@@ -13,32 +13,25 @@ import Chapter from "./components/Chapter"
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [userchoices, setUserchoices] = useState([])
-  const [stories, setStories] = useState([])
-  const [inventory, setInventory] = useState([])
 
-  useEffect(()=>{
+  useEffect(()=>{    
     fetch("/me").then((res) => {
       if(res.ok){
-        res.json().then((currentUser)=>setCurrentUser(currentUser))
-        .then(fetch("/userchoices").then((res)=>{if(res.ok){res.json().then((userchoices)=>setUserchoices(userchoices))}}))
-        .then(fetch("/stories").then((res)=>{if(res.ok){res.json().then((stories)=>setStories(stories))}}))
-        .then(fetch("/inventories/:id").then((res)=>{if(res.ok){res.json().then((inventory)=>setInventory(inventory))}}))
-      }else{
-        console.log(res)
+        res.json()
+        .then((currentUser)=>setCurrentUser(currentUser))
       }})
   }, []); 
 
-return(<div>
+return(<div className="bg-black min-h-screen ">
   {currentUser ? 
   <div>
     <Navbar setCurrentUser={setCurrentUser} image={currentUser.image_url}/>
     <Routes>
           <Route path="/profile" element={<Profile name={currentUser.name} username={currentUser.username} image_url={currentUser.image_url}/>}></Route>
           <Route path="/events/:id" element={<Chapter/>}></Route>
-          <Route path="/stories" element={<StoryPick stories={stories} />}></Route>
-          <Route path="/inventory" element={<Inventory inventory={inventory} />}></Route>
-          <Route exact path="/" element={<Home left_off= {currentUser.left_off} userchoices={userchoices}/>}></Route>
+          <Route path="/stories" element={<StoryPick />}></Route>
+          <Route path="/inventory" element={<Inventory />}></Route>
+          <Route exact path="/" element={<Home left_off= {currentUser.left_off}/>}></Route>
     </Routes>
   </div> 
     :

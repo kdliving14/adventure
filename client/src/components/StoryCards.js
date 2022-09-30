@@ -1,4 +1,12 @@
+import { useNavigate } from "react-router-dom"
+
 function StoryCard({title, description, image_url, trigger_warnings}){
+    const navigate = useNavigate();
+    
+    function handleClick(){
+        navigate(`/events/1`)
+    }
+    
     return(<div
         className="m-auto px-2 py-3 w-96 rounded-lg border shadow-md text-white bg-zinc-900 border-gray-700 justify-between">
         <img 
@@ -19,11 +27,19 @@ function StoryCard({title, description, image_url, trigger_warnings}){
         </p>
         <br></br>
         <div className="text-center">
-        <a className="text-black font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-gray-100 hover:bg-gray-500" href={`/events/1`}> 
+        <button 
+            className="text-black font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-gray-100 hover:bg-gray-500"
+            onClick={()=>{handleClick()}}
+        >Start
+        </button>
+        
+        {/* <a className="text-black font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-gray-100 hover:bg-gray-500" href={`/events/1`}> 
             <span>Start</span> 
-        </a>
+        </a> */}
         </div>
     </div>)
 
 }
 export default StoryCard
+
+//className="text-black font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-gray-100 hover:bg-gray-500"
