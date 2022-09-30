@@ -16,7 +16,7 @@ u1 = User.create(
     password:"test", 
     name:"Karter", 
     image_url:"", 
-    left_off: 0
+    left_off: 2
 )
 
 u2 = User.create(
@@ -133,12 +133,6 @@ uc2 = Userchoice.create(
     user_id: u2.id,
     event_id: e1.id,
     choice_id: c2.id
-)
-
-uc3 = Userchoice.create(
-    user_id: u2.id,
-    event_id: e2.id,
-    choice_id: c1.id
 )
 
 puts "Done!"

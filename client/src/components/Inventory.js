@@ -1,6 +1,17 @@
+import { useEffect, useState } from "react"
+
 import ItemCard from "./ItemCard"
 
-function Inventory({inventory}){
+function Inventory(){
+
+    const [inventory, setInventory] = useState([])
+
+    useEffect(()=>{    
+        fetch("/inventories/:id").then((res) => {
+          if(res.ok){
+            res.json().then((inventory)=>setInventory(inventory))}})
+      }, []);
+
     return(<div>
         <br></br>
         {inventory.map(item=>(

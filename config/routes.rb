@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :events
   resources :userstories
   resources :stories
-  resources :users, except: [:index]
+  resources :users
   
   post "/login", to: "sessions#create" 
   delete "/logout", to: "sessions#destroy"

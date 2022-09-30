@@ -1,6 +1,16 @@
+import { useEffect, useState } from "react"
+
 import StoryCard from "./StoryCards"
 
-function StoryPick({stories}){
+function StoryPick(){
+    
+    const [stories, setStories] = useState([])
+
+    useEffect(()=>{    
+        fetch("/stories").then((res) => {
+          if(res.ok){
+            res.json().then((stories)=>setStories(stories))}})
+      }, []);
 
     return(<div>
         <br></br>

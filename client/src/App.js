@@ -13,95 +13,71 @@ import Chapter from "./components/Chapter"
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [userchoices, setUserchoices] = useState([])
-  const [stories, setStories] = useState([])
-  const [inventory, setInventory] = useState([])
+  let e_id=0
+  // const [e_id, setE_id]= useState(0)
 
-  useEffect(()=>{
+  useEffect(()=>{    
     fetch("/me").then((res) => {
       if(res.ok){
-        res.json().then((currentUser)=>setCurrentUser(currentUser))
-        .then(fetch("/userchoices").then((res)=>{if(res.ok){res.json().then((userchoices)=>setUserchoices(userchoices))}}))
-        .then(fetch("/stories").then((res)=>{if(res.ok){res.json().then((stories)=>setStories(stories))}}))
-        .then(fetch("/inventories/:id").then((res)=>{if(res.ok){res.json().then((inventory)=>setInventory(inventory))}}))
-      }else{
-        console.log(res)
+        res.json()
+        .then((currentUser)=>setCurrentUser(currentUser))
       }})
   }, []); 
 
-return(<div>
-  {currentUser ? 
-  <div>
-    <Navbar setCurrentUser={setCurrentUser} image={currentUser.image_url}/>
-    <Routes>
-          <Route path="/profile" element={<Profile name={currentUser.name} username={currentUser.username} image_url={currentUser.image_url}/>}></Route>
-          <Route path="/stories" element={<StoryPick stories={stories} />}></Route>
-          <Route path="/inventory" element={<Inventory inventory={inventory} />}></Route>
-          <Route path="/chapters" element={<Chapter/>}></Route>
-          <Route exact path="/" element={<Home left_off= {currentUser.left_off} userchoices={userchoices}/>}></Route>
-    </Routes>
-  </div> 
-    :
-  <div>
-    <LogSign />
-    <Routes>
-      <Route path="/login" element={<Login updateUser={setCurrentUser}/>}></Route>
-      <Route path="/signup" element={<Signup updateUser={setCurrentUser}/>}></Route>
-    </Routes>
-  </div>}
-  <br></br>
-  <br></br>
-  <br></br>
-  <br></br>
-  <footer className="fixed bottom-0 left-0 z-20 p-4 w-full shadow flex items-center justify-between bg-zinc-900">
-    <ul className="flex flex-wrap mt-3 text-sm text-gray-400 sm:mt-0">
-        <li>
+  return(<div className="bg-black min-h-screen ">
+    {currentUser ? 
+    <div>
+      <Navbar setCurrentUser={setCurrentUser} image={currentUser.image_url}/>
+      <Routes>
+            <Route path="/profile" element={<Profile name={currentUser.name} username={currentUser.username} image_url={currentUser.image_url}/>}></Route>
+            <Route path="/events" element={<Chapter id={currentUser.left_off === null || currentUser.left_off === 0 ? 1 : currentUser.left_off}/>}></Route>
+            <Route path="/stories" element={<StoryPick />}></Route>
+            <Route path="/inventory" element={<Inventory />}></Route>
+            <Route exact path="/" element={<Home left_off= {currentUser.left_off}/>}></Route>
+      </Routes>
+    </div> 
+      :
+    <div>
+      <LogSign />
+      <Routes>
+        <Route path="/login" element={<Login updateUser={setCurrentUser}/>}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+      </Routes>
+    </div>}
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+    <footer className="fixed bottom-0 left-0 z-20 p-4 w-full shadow flex items-center justify-between bg-zinc-900">
+      <ul className="flex flex-wrap mt-3 text-sm text-gray-400 sm:mt-0">
+          <li>
+            <span className="mr-4 hover:underline md:mr-6">
+              About
+            </span>
+              {/* <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a> */}
+          </li>
+          <li>
+            <span className="mr-4 hover:underline md:mr-6">
+              LinkedIn
+            </span>
+              {/* <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a> */}
+          </li>
+          <li>
           <span className="mr-4 hover:underline md:mr-6">
-            About
-          </span>
-            {/* <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a> */}
-        </li>
-        <li>
-          <span className="mr-4 hover:underline md:mr-6">
-            LinkedIn
-          </span>
-            {/* <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a> */}
-        </li>
-        <li>
-         <span className="mr-4 hover:underline md:mr-6">
-            Github
-          </span>
-            {/* <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a> */}
-        </li>
-        <li>
-          <span className="mr-4 hover:underline md:mr-6">
-            Blog
-          </span>
-            {/* <a href="#" class="hover:underline">Contact</a> */}
-        </li>
-    </ul>
-</footer>
+              Github
+            </span>
+              {/* <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a> */}
+          </li>
+          <li>
+            <span className="mr-4 hover:underline md:mr-6">
+              Blog
+            </span>
+              {/* <a href="#" class="hover:underline">Contact</a> */}
+          </li>
+      </ul>
+  </footer>
 
-</div>)}
-//   if (currentUser){
-//     return (<div>
-//         <Navbar setCurrentUser={setCurrentUser} image={currentUser.image_url}/>
-//         <Routes>
-//               <Route path="/profile" element={<Profile currentUser={currentUser}/>}></Route>
-//               <Route path="/stories" element={<StoryPick stories={stories}/>}></Route>
-//               <Route path="/inventory" element={<Inventory inventory={inventory}/>}></Route>
-//               <Route exact path="/" element={<Home currentUser={currentUser} userchoices={userchoices}/>}></Route>
-//         </Routes>
-        
-//       </div>)
-//   }
-//   else {return(<div>
-//       <LogSign />
-//       <Routes>
-//               <Route path="/login" element={<Login updateUser={updateUser}/>}></Route>
-//               <Route path="/signup" element={<Signup updateUser={updateUser}/>}></Route>
-//         </Routes>
-//     </div>)}
-// }
+  </div>)
+  }
 
 export default App;
