@@ -13,6 +13,8 @@ import Chapter from "./components/Chapter"
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
+  let e_id=0
+  // const [e_id, setE_id]= useState(0)
 
   useEffect(()=>{    
     fetch("/me").then((res) => {
@@ -28,7 +30,7 @@ function App() {
       <Navbar setCurrentUser={setCurrentUser} image={currentUser.image_url}/>
       <Routes>
             <Route path="/profile" element={<Profile name={currentUser.name} username={currentUser.username} image_url={currentUser.image_url}/>}></Route>
-            <Route path="/events" element={<Chapter id={currentUser.left_off === null ? 1: currentUser.left_off}/>}></Route>
+            <Route path="/events" element={<Chapter id={currentUser.left_off === null || currentUser.left_off === 0 ? 1 : currentUser.left_off}/>}></Route>
             <Route path="/stories" element={<StoryPick />}></Route>
             <Route path="/inventory" element={<Inventory />}></Route>
             <Route exact path="/" element={<Home left_off= {currentUser.left_off}/>}></Route>

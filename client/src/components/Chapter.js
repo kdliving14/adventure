@@ -19,10 +19,14 @@ function Chapter({id}){
 
     const {image_url, name, long_description, choices} = chapter
 
+    console.log("before click", id)
+
+
     function handleClick(e){
         id = e.target.value
 
-        
+        console.log("after click",id)
+
 
         fetch(`/events/${id}`).then((res) => {
         if(res.ok){
