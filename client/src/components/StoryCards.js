@@ -4,7 +4,7 @@ function StoryCard({title, description, image_url, trigger_warnings}){
     const navigate = useNavigate();
     
     function handleClick(){
-        navigate(`/events/1`)
+        navigate("/events", {state:{id:1}})
     }
     
     return(<div

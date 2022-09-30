@@ -17,10 +17,10 @@ function Home({left_off}){
 
     function handleContinue(){
         if(left_off===0){
-            navigate(`/events/1`)
+            navigate("/events", {state:{id:1}})
         }
         else{
-            navigate(`/events/${left_off}`)
+            navigate("/events", {state:{id:left_off}})
         }
     }
 
@@ -30,6 +30,8 @@ function Home({left_off}){
 
     return(<div className="mx-5 justify-between text-center">
         <br></br>
+        {/* <button onClick={play} className="text-white font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-zinc-900 hover:bg-gray-500">Sound</button>  */}
+
         {left_off === null ? 
         <button onClick={handleNewStory} className="text-white font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-zinc-900 hover:bg-gray-500">Start a Story</button> 
         : 

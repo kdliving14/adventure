@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import {useNavigate} from "react-router-dom"
 import {Button} from "flowbite-react"
 
-function Signup({updateUser}){
+function Signup(){
 
     const [errors, setErrors] = useState([])
-    const [formData, setFormData] =useState({
+    const [formData, setFormData] = useState({
         name:"",
         username:"",
         password:"",
@@ -25,10 +25,10 @@ function Signup({updateUser}){
           body:JSON.stringify({username, name, password, image_url})
         })
         .then(res => {if(res.ok)
-            { res.json().then(user => {
-                updateUser(user);
-                navigate(`/`)})
-            }
+            {res.json().then(() => {
+                alert("Account made successfully. Please login with the account details you used.");
+                navigate(`/login`)
+            })}
         })
         .catch(res => {setErrors(res.error); console.log(errors)})
     }
@@ -41,27 +41,27 @@ function Signup({updateUser}){
     return(<div>
     <form onSubmit={onSubmit} className="flex flex-col gap-1">
         <h1>Signup</h1>
-        <label htmlFor="name">First Name: </label>
+        <label className="text-white">First Name: </label>
             <input 
             type="text" 
             name="name"
             autoComplete="off"
             value={name}
             onChange={handleChange}/><br></br>
-        <label>Profile Image URL: </label>
+        <label className="text-white">Profile Image URL: </label>
             <input type="text"
             name="image_url"
             autoComplete="off"
             value={image_url}
             onChange={handleChange}/><br></br>
-        <label htmlFor="username">Username: </label>
+        <label className="text-white">Username: </label>
             <input 
             type="text" 
             name="username"
             autoComplete="off"
             value={username}
             onChange={handleChange}/><br></br>
-        <label>Password: </label>
+        <label className="text-white">Password: </label>
             <input type="password"
             name="password"
             autoComplete="off"

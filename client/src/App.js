@@ -22,59 +22,60 @@ function App() {
       }})
   }, []); 
 
-return(<div className="bg-black min-h-screen ">
-  {currentUser ? 
-  <div>
-    <Navbar setCurrentUser={setCurrentUser} image={currentUser.image_url}/>
-    <Routes>
-          <Route path="/profile" element={<Profile name={currentUser.name} username={currentUser.username} image_url={currentUser.image_url}/>}></Route>
-          <Route path="/events/:id" element={<Chapter/>}></Route>
-          <Route path="/stories" element={<StoryPick />}></Route>
-          <Route path="/inventory" element={<Inventory />}></Route>
-          <Route exact path="/" element={<Home left_off= {currentUser.left_off}/>}></Route>
-    </Routes>
-  </div> 
-    :
-  <div>
-    <LogSign />
-    <Routes>
-      <Route path="/login" element={<Login updateUser={setCurrentUser}/>}></Route>
-      <Route path="/signup" element={<Signup updateUser={setCurrentUser}/>}></Route>
-    </Routes>
-  </div>}
-  <br></br>
-  <br></br>
-  <br></br>
-  <br></br>
-  <footer className="fixed bottom-0 left-0 z-20 p-4 w-full shadow flex items-center justify-between bg-zinc-900">
-    <ul className="flex flex-wrap mt-3 text-sm text-gray-400 sm:mt-0">
-        <li>
+  return(<div className="bg-black min-h-screen ">
+    {currentUser ? 
+    <div>
+      <Navbar setCurrentUser={setCurrentUser} image={currentUser.image_url}/>
+      <Routes>
+            <Route path="/profile" element={<Profile name={currentUser.name} username={currentUser.username} image_url={currentUser.image_url}/>}></Route>
+            <Route path="/events" element={<Chapter id={currentUser.left_off === null ? 1: currentUser.left_off}/>}></Route>
+            <Route path="/stories" element={<StoryPick />}></Route>
+            <Route path="/inventory" element={<Inventory />}></Route>
+            <Route exact path="/" element={<Home left_off= {currentUser.left_off}/>}></Route>
+      </Routes>
+    </div> 
+      :
+    <div>
+      <LogSign />
+      <Routes>
+        <Route path="/login" element={<Login updateUser={setCurrentUser}/>}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+      </Routes>
+    </div>}
+    <br></br>
+    <br></br>
+    <br></br>
+    <br></br>
+    <footer className="fixed bottom-0 left-0 z-20 p-4 w-full shadow flex items-center justify-between bg-zinc-900">
+      <ul className="flex flex-wrap mt-3 text-sm text-gray-400 sm:mt-0">
+          <li>
+            <span className="mr-4 hover:underline md:mr-6">
+              About
+            </span>
+              {/* <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a> */}
+          </li>
+          <li>
+            <span className="mr-4 hover:underline md:mr-6">
+              LinkedIn
+            </span>
+              {/* <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a> */}
+          </li>
+          <li>
           <span className="mr-4 hover:underline md:mr-6">
-            About
-          </span>
-            {/* <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a> */}
-        </li>
-        <li>
-          <span className="mr-4 hover:underline md:mr-6">
-            LinkedIn
-          </span>
-            {/* <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a> */}
-        </li>
-        <li>
-         <span className="mr-4 hover:underline md:mr-6">
-            Github
-          </span>
-            {/* <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a> */}
-        </li>
-        <li>
-          <span className="mr-4 hover:underline md:mr-6">
-            Blog
-          </span>
-            {/* <a href="#" class="hover:underline">Contact</a> */}
-        </li>
-    </ul>
-</footer>
+              Github
+            </span>
+              {/* <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a> */}
+          </li>
+          <li>
+            <span className="mr-4 hover:underline md:mr-6">
+              Blog
+            </span>
+              {/* <a href="#" class="hover:underline">Contact</a> */}
+          </li>
+      </ul>
+  </footer>
 
-</div>)}
+  </div>)
+  }
 
 export default App;

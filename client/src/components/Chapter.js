@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom";
+import useSound from 'use-sound';
 
-function Chapter(
-    // {id}
-){
-    
-    const navigate = useNavigate();
+import Rain from "./assets/Rain-Interior.mp3";
 
-    let { id } = useParams();
+function Chapter({id}){
 
     const [chapter, setChapter] = useState([])
+    const [play] = useSound(Rain)
 
     useEffect(()=>{
         fetch(`/events/${id}`).then((res) => {
@@ -23,16 +20,17 @@ function Chapter(
     const {image_url, name, long_description, choices} = chapter
 
     function handleClick(e){
-        // useEffect(()=>{
-        //     fetch(`/events/${id}`).then((res) => {
-        //     if(res.ok){
-        //         res.json().then((chapter)=>{setChapter(chapter)})
-        //     }else{
-        //         console.log(res)
-        //     }})
-        // }, [id]); 
+        id = e.target.value
 
-        navigate(`/events/${e.target.value}`)
+        
+
+        fetch(`/events/${id}`).then((res) => {
+        if(res.ok){
+            res.json().then((chapter)=>{setChapter(chapter)})
+        }else{
+            console.log(res)
+        }})
+
     }
 
     return <div>
