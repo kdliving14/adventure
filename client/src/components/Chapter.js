@@ -3,41 +3,48 @@ import useSound from 'use-sound';
 
 import Rain from "./assets/Rain-Interior.mp3";
 
-function Chapter({id}){
+function Chapter({event_id, user_id}){
 
     const [chapter, setChapter] = useState([])
     const [play] = useSound(Rain)
 
     useEffect(()=>{
-        fetch(`/events/${id}`).then((res) => {
-        if(res.ok){
-            res.json().then((chapter)=>{setChapter(chapter)})
+        fetch(`/events/${event_id}`).then((res) => {
+        if(res.ok){res.json().then((chapter)=>{setChapter(chapter)})
         }else{
             console.log(res)
         }})
-    }, [id]); 
+    }, [event_id]); 
 
     const {image_url, name, long_description, choices} = chapter
-
-    console.log("before click", id)
-
+    let choice_id = 0;
 
     function handleClick(e){
-        id = e.target.value
+        event_id = e.target.value
+        choice_id = e.target.name
 
-        console.log("after click",id)
+        fetch("/chosen", {
+            method: "PATCH",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ left_off:event_id })
+        })
 
+        fetch("/userchoices", {
+            method: "PATCH",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ event_id:event_id, choice_id:choice_id, user_id:user_id })
+        })
 
-        fetch(`/events/${id}`).then((res) => {
+        fetch(`/events/${event_id}`).then((res) => {
         if(res.ok){
             res.json().then((chapter)=>{setChapter(chapter)})
         }else{
             console.log(res)
         }})
-
     }
 
     return <div>
+            {/* <button onClick={play} className="text-white font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-zinc-900 hover:bg-gray-500">Sound</button>  */}
             <br></br>
                 <div className="m-auto px-2 py-3 w-96 rounded-lg border shadow-md text-white bg-zinc-900 border-gray-700 justify-between">
                 <img 
@@ -48,14 +55,15 @@ function Chapter({id}){
                 <br></br>
                 <h1>{name}</h1>
                 <br></br>
-                <p>{long_description}</p>
+                <p className="whitespace-pre-line">{long_description}</p>
                 <div>
                     {choices?.map(c=>(
-                    <div>
+                    <div className="text-center">
                         <br></br>
                         <button
                             className="text-black font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-gray-100 hover:bg-gray-500"
                             value={c.next_event_id}
+                            name={c.id}
                             onClick={(e)=>{handleClick(e)}}
                             >
                             {c.content}

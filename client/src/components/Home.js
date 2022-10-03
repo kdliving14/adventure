@@ -1,27 +1,15 @@
 import { useState, useEffect } from "react";
-import {useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom";
 
 import UserChoices from "./UserChoices"
 
-function Home({left_off}){
-
-    const [userchoices, setUserchoices] = useState([])
-
-    useEffect(()=>{    
-        fetch("/userchoices").then((res) => {
-          if(res.ok){
-            res.json().then((userchoices)=>setUserchoices(userchoices))}})
-      }, []);
+function Home({left_off, userchoices}){
 
     const navigate = useNavigate();
 
     function handleContinue(){
-        if(left_off===0){
-            navigate("/events", {state:{id:1}})
-        }
-        else{
-            navigate("/events", {state:{id:left_off}})
-        }
+        if (left_off===0) {navigate("/events", {state:{id:1}})}
+        else {navigate("/events", {state:{id:left_off}})}
     }
 
     function handleNewStory(){
@@ -30,17 +18,15 @@ function Home({left_off}){
 
     return(<div className="mx-5 justify-between text-center">
         <br></br>
-        {/* <button onClick={play} className="text-white font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-zinc-900 hover:bg-gray-500">Sound</button>  */}
-
         {left_off === null ? 
         <button onClick={handleNewStory} className="text-white font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-zinc-900 hover:bg-gray-500">Start a Story</button> 
         : 
-        <button onClick={handleContinue} className="text-white font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-zinc-900 hover:bg-gray-500">Continue Story?</button> }
+        <button onClick={handleContinue} className="text-white font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-zinc-900 hover:bg-gray-500">Continue Story?</button> 
+        }
         
         {left_off === null ? null : <div> 
             <br></br>
-            <h5 className="mb-2 text-2xl font-bold tracking-tight">Your choices so far:</h5>
-                <br></br>
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">Your choices so far:</h5>
                 <div className="w-56 m-5 rounded-lg border shadow-md bg-zinc-900 border-gray-700">
                 {userchoices.map((choice)=> (
                     <UserChoices

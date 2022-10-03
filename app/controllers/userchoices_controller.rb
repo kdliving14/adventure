@@ -13,6 +13,12 @@ class UserchoicesController < ApplicationController
         render json: choices
     end
 
+    def destroy
+        userchoice = Userchoice.find(params[:id])
+        userchoice.destroy!
+        head :no_content
+    end
+
     private
 
     def us_params

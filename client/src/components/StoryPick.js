@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 
 import StoryCard from "./StoryCards"
 
-function StoryPick(){
+function StoryPick({user_id, userstories}){
     
     const [stories, setStories] = useState([])
 
@@ -17,11 +17,13 @@ function StoryPick(){
         {stories.map((story)=>(
                 <StoryCard 
                 key = {story.id}
-                id = {story.id}
+                story_id = {story.id}
                 title = {story.name}
                 description = {story.description}
                 image_url = {story.image_url}
                 trigger_warnings = {story.trigger_warnings}
+                user_id = {user_id}
+                userstories = {userstories}
                 />
             ))} 
     </div>)

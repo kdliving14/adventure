@@ -1,6 +1,4 @@
 class UserstoriesController < ApplicationController
-    
-    
     def index
         render json: @current_user.userstories
     end
@@ -13,6 +11,12 @@ class UserstoriesController < ApplicationController
     def create
         story = Userstory.create!(us_params)
         render json: story
+    end
+
+    def destroy
+        userstory = Userstory.find(params[:id])
+        userstory.destroy
+        head :no_content
     end
 
     private
