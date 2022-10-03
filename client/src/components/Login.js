@@ -18,8 +18,9 @@ function LoginSignup({updateUser}) {
             body: JSON.stringify({ username, password })
             })
             .then((r) => {
-            if (r.ok){r.json().then(user => {updateUser(user); 
-            navigate(`/`)})}
+                if (r.ok){r.json().then(user => {updateUser(user); 
+                navigate(`/`)
+            })}
         })
     }
 

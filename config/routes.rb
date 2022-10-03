@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
-  resources :userchoices
-  resources :choices
-  resources :inventories
-  resources :items
-  resources :events
-  resources :userstories
-  resources :stories
-  resources :users
+  resources :userchoices, only: [:index, :show, :create, :destroy]
+  resources :choices, only: [:index, :show]
+  resources :inventories, only: [:index, :create]
+  resources :items, only: [:index]
+  resources :events, only: [:index, :show]
+  resources :userstories, only: [:index, :show, :create, :destroy]
+  resources :stories, only: [:index]
+  resources :users, except: [:show]
   
   post "/login", to: "sessions#create" 
   delete "/logout", to: "sessions#destroy"
@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   patch "/chosen", to: "users#choose"
 
   get "/me", to: "users#show"
+  get "/me/userchoices", to: "userchoices#index"
 
 end

@@ -2,14 +2,13 @@ import { useEffect, useState } from "react"
 
 import StoryCard from "./StoryCards"
 
-function StoryPick({user_id, userstories}){
+function StoryPick({user_id, userstories, setUserStories}){
     
     const [stories, setStories] = useState([])
 
     useEffect(()=>{    
         fetch("/stories").then((res) => {
-          if(res.ok){
-            res.json().then((stories)=>setStories(stories))}})
+          if(res.ok){res.json().then((stories)=>setStories(stories))}})
       }, []);
 
     return(<div>
@@ -24,6 +23,7 @@ function StoryPick({user_id, userstories}){
                 trigger_warnings = {story.trigger_warnings}
                 user_id = {user_id}
                 userstories = {userstories}
+                setUserStories = {setUserStories}
                 />
             ))} 
     </div>)

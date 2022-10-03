@@ -1,6 +1,6 @@
 class UserchoicesController < ApplicationController
     def index
-        render json: @current_user.userchoices
+        render json: @current_user.userchoices 
     end
 
     def show
@@ -22,6 +22,6 @@ class UserchoicesController < ApplicationController
     private
 
     def us_params
-        params.permit("user_id","event_id", "choice_id")
+        params.permit("userstory_id","event_id", "choice_id")
     end
 end
