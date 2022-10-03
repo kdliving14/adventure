@@ -1,11 +1,16 @@
 import { useNavigate } from "react-router-dom"
 
-function StoryCard({title, description, image_url, trigger_warnings, user_id, story_id, userstories}){
-    
+function StoryCard({title, description, image_url, trigger_warnings, user_id, story_id, userstories, setUserStories}){
     const navigate = useNavigate();
+
+    // console.log("Story id: ",story_id)
+    // console.log("User id: ", user_id)
+    // console.log("Userstory: ", userstories)
     
-    function handleClick(){
-        if(userstories.find(e => e.story.id === story_id)){
+    function handleClick(e){
+        e.preventDefault()
+
+        if(userstories?.find(e => e.story.id === story_id)){
             navigate("/events")
         }
         else{
@@ -13,9 +18,7 @@ function StoryCard({title, description, image_url, trigger_warnings, user_id, st
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({ user_id:user_id, story_id:story_id })
-            })
-
-            navigate("/events")
+            }).then((data)=>{setUserStories(data); window.location.reload()}).then(navigate("/events"))
         }
     }
     
@@ -36,6 +39,8 @@ function StoryCard({title, description, image_url, trigger_warnings, user_id, st
             {description}
         </p>
 
+        <br></br>
+        
         <p>
             Trigger Warning: This story contains {trigger_warnings}.
         </p>
@@ -51,7 +56,7 @@ function StoryCard({title, description, image_url, trigger_warnings, user_id, st
         <div className="text-center">
             <button 
                 className="text-black font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-gray-100 hover:bg-gray-500"
-                onClick={()=>{handleClick()}}>
+                onClick={(e)=>{handleClick(e)}}>
                     Start
             </button>
         </div>

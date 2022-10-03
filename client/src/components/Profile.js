@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 
-function Profile({setCurrentUser, name, username, image_url, stories, user_id, userchoices})
+function Profile({setCurrentUser, name, username, image_url, stories, user_id})
 {
     const navigate = useNavigate()
 
@@ -14,17 +14,12 @@ function Profile({setCurrentUser, name, username, image_url, stories, user_id, u
                 method: "PATCH",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({ left_off:null })
-                })
-            userchoices.find(e => e.user_id === user_id ?
-            fetch(`/userchoices/${e.id}`,{
-                method:'DELETE',
-                headers:{'Content-Type':'application/json'}
-            }).then(res => {
-                if(res.ok){ 
-                    alert("Your story progress has been reset.")
-                    navigate('/')
-                } else {res.json().then(data => console.log(data))}
-            }): console.log("no choices made"))
+                }).then(res => {
+                            if(res.ok){ 
+                                alert("Your story progress has been reset.")
+                                window.location.reload();
+                                // navigate('/stories')
+                            }})
         }
         else {alert("Story progress reset canceled.")}
     }
@@ -48,31 +43,50 @@ function Profile({setCurrentUser, name, username, image_url, stories, user_id, u
         }
     }
 
-    return(<div className="text-white text-center" >
-        <br></br>
-        <p>Profile!</p>
-        <p>Name: {name}</p>
-        <p>Username: {username}</p>
-        {image_url==="" ? null : <p>Image Url: {image_url}</p>}
-        <br></br>
-        <br></br>
-        {stories.length===0 ? null : <div><p>Stories:</p>
-        {stories?.map((story)=>
-        <div>
-            <p className="text-white">{story.story.name}</p>
+    return(<div className="text-center grid grid-cols-2 pt-10">
+        
+        <div className="m-auto w-48 p-2 rounded-lg border shadow-md text-white bg-zinc-900 border-gray-700">
+            <img className="" src = {image_url} alt={name}/>
+            <p>Name: {name}</p>
+            <p>Username: {username}</p>
             <button 
-                name={story.id}
-                className="text-black font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-gray-100 hover:bg-gray-500"
-                onClick={(e)=>{handleReset(e)}}>
-                Reset Progress
-            </button>
-        </div>)}
-        </div>}
-        <button 
-            className="text-black font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-gray-100 hover:bg-gray-500"
-            onClick={()=>{handleDeleteAccount()}}>
+                className="text-black font-medium rounded-lg text-sm px-2.5 py-2 text-center h-10 bg-gray-100 hover:bg-gray-500"
+                onClick={()=>{handleDeleteAccount()}}>
                 Delete Account
-        </button>
+            </button>
+        </div>
+        <div>
+        {stories.length===0 ? null : 
+        <div>
+            <p>Stories:</p>
+            {stories?.map((story)=>
+                <div className="m-auto p-2 w-32 rounded-lg border shadow-md text-white text-center bg-zinc-900 border-gray-700" key={story.id}>
+                    <p className="text-white">{story.story.name}</p>
+                    <button 
+                        name={story.id}
+                        className="text-black font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-gray-100 hover:bg-gray-500"
+                        onClick={(e)=>{handleReset(e)}}>
+                        Reset Progress
+                    </button>
+                </div>)}
+            <br></br>
+        </div>}
+        <br></br>
+        <div className="m-auto w-32 rounded-lg border text-white bg-zinc-900 border-gray-700 ">
+            <p>Creator Links:</p>
+            <ul className="text-sm text-gray-400">
+                <li> 
+                    <a href="https://www.linkedin.com/in/karter-livingston/" target="_blank" rel="noreferrer" className="hover:underline">LinkedIn</a>
+                </li>
+                <li>
+                    <a href="https://github.com/kdliving14" target="_blank" rel="noreferrer" className="hover:underline">Github</a>
+                </li>
+                <li>
+                    <a href="https://dev.to/kdliving14" target="_blank" rel="noreferrer" className="hover:underline">Blog</a>
+                </li>
+            </ul>
+        </div>
+        </div>
         </div>)
 }
 

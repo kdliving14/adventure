@@ -130,25 +130,19 @@ i1 = Item.create(
     image_url:"https://images.all-free-download.com/images/graphicwebp/old_book_clip_art_20190.webp"    
 )
 
-puts "Creating Inventory"
+# puts "Creating Inventory"
 
-inv1 = Inventory.create(
-    userstory_id: u1.id,
-    item_id: i1.id
-)
+# inv1 = Inventory.create(
+#     userstory_id: u1.id,
+#     item_id: i1.id
+# )
 
 puts "Creating User Choices"
 
 uc1 = Userchoice.create(
-    user_id: u1.id,
+    userstory_id: us1.id,
     event_id: e1.id,
     choice_id: c1.id
-)
-
-uc2 = Userchoice.create(
-    user_id: u2.id,
-    event_id: e1.id,
-    choice_id: c2.id
 )
 
 puts "Done!"

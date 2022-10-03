@@ -11,7 +11,6 @@ function Signup(){
         password:"",
         image_url:""
     })
-
     const {name, username, password, image_url} = formData
 
     const navigate = useNavigate();

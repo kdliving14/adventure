@@ -1,4 +1,3 @@
-
 function UserChoices({event, choice, image_url}){
 return (
     <div className="block p-5">
