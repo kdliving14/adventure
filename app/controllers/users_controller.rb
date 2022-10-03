@@ -25,6 +25,11 @@ class UsersController < ApplicationController
         render json: @current_user
     end
 
+    def destroy
+        @current_user.destroy
+        head :no_content
+    end
+
     private
 
     def u_params

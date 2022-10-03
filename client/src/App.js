@@ -13,27 +13,38 @@ import Chapter from "./components/Chapter"
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  let e_id=0
-  // const [e_id, setE_id]= useState(0)
+  const [userStories, setUserStories] = useState([])
+  const [userchoices, setUserchoices] = useState([])
+
 
   useEffect(()=>{    
     fetch("/me").then((res) => {
-      if(res.ok){
-        res.json()
-        .then((currentUser)=>setCurrentUser(currentUser))
-      }})
+      if(res.ok){res.json().then((currentUser)=>setCurrentUser(currentUser))}})
+    fetch("/userstories").then((res)=>{
+      if(res.ok){res.json().then((stories)=>setUserStories(stories))}})
+    fetch("/userchoices").then((res) => {
+      if(res.ok){res.json().then((userchoices)=>setUserchoices(userchoices))}})
   }, []); 
 
   return(<div className="bg-black min-h-screen ">
     {currentUser ? 
     <div>
-      <Navbar setCurrentUser={setCurrentUser} image={currentUser.image_url}/>
+      <Navbar setCurrentUser={setCurrentUser} name = {currentUser.name} image={currentUser.image_url}/>
       <Routes>
-            <Route path="/profile" element={<Profile name={currentUser.name} username={currentUser.username} image_url={currentUser.image_url}/>}></Route>
-            <Route path="/events" element={<Chapter id={currentUser.left_off === null || currentUser.left_off === 0 ? 1 : currentUser.left_off}/>}></Route>
-            <Route path="/stories" element={<StoryPick />}></Route>
+            <Route path="/profile" element={
+              <Profile setCurrentUser={setCurrentUser} 
+                      name={currentUser.name} 
+                      username={currentUser.username} 
+                      image_url={currentUser.image_url}
+                      user_id={currentUser.id} 
+                      stories={userStories} 
+                      userchoices={userchoices}/>}
+              >          
+            </Route>
+            <Route path="/events" element={<Chapter event_id={currentUser.left_off === null ? 1 : currentUser.left_off} user_id={currentUser.id}/>}></Route>
+            <Route path="/stories" element={<StoryPick user_id={currentUser.id} userstories ={userStories}/>}></Route>
             <Route path="/inventory" element={<Inventory />}></Route>
-            <Route exact path="/" element={<Home left_off= {currentUser.left_off}/>}></Route>
+            <Route exact path="/" element={<Home userchoices={userchoices} left_off={currentUser.left_off}/>}></Route>
       </Routes>
     </div> 
       :
@@ -50,29 +61,17 @@ function App() {
     <br></br>
     <footer className="fixed bottom-0 left-0 z-20 p-4 w-full shadow flex items-center justify-between bg-zinc-900">
       <ul className="flex flex-wrap mt-3 text-sm text-gray-400 sm:mt-0">
-          <li>
-            <span className="mr-4 hover:underline md:mr-6">
-              About
-            </span>
-              {/* <a href="#" class="mr-4 hover:underline md:mr-6 ">About</a> */}
+          {/* <li>
+              <a href="/about" class="mr-4 hover:underline">About</a>
+          </li> */}
+          <li> 
+            <a href="https://www.linkedin.com/in/karter-livingston/" target="_blank" rel="noreferrer" className="mr-4 hover:underline">LinkedIn</a>
           </li>
           <li>
-            <span className="mr-4 hover:underline md:mr-6">
-              LinkedIn
-            </span>
-              {/* <a href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</a> */}
+            <a href="https://github.com/kdliving14" target="_blank" rel="noreferrer" className="mr-4 hover:underline">Github</a>
           </li>
           <li>
-          <span className="mr-4 hover:underline md:mr-6">
-              Github
-            </span>
-              {/* <a href="#" class="mr-4 hover:underline md:mr-6">Licensing</a> */}
-          </li>
-          <li>
-            <span className="mr-4 hover:underline md:mr-6">
-              Blog
-            </span>
-              {/* <a href="#" class="hover:underline">Contact</a> */}
+              <a href="https://dev.to/kdliving14" target="_blank" rel="noreferrer" className="mr-4 hover:underline">Blog</a>
           </li>
       </ul>
   </footer>

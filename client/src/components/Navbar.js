@@ -1,12 +1,19 @@
 // import logo from './logo.svg';
 // <img src={logo} className="App-logo" alt="logo" />
 
-function Navbar({setCurrentUser, image}) {
+import { useNavigate } from "react-router-dom";
+
+function Navbar({name, setCurrentUser, image}) {
+
+  const navigate = useNavigate()
     
     function handleLogout(){
         fetch("/logout", {
-            method: "DELETE"
-        }).then(()=> setCurrentUser(null));
+            method: "DELETE",
+            headers: {'Content-Type': 'application/json'}
+
+        }).then(()=> setCurrentUser(null))
+        navigate("/")
     }
 
     return (
