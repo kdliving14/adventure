@@ -1,6 +1,9 @@
 class User < ApplicationRecord
     has_secure_password
 
+    validates :name, :username, :password, presence: :true
+    validates :username, uniqueness: :true
+
     has_many :userstories, dependent: :destroy
     has_many :userchoices, through: :userstories, dependent: :destroy
 
@@ -10,4 +13,6 @@ class User < ApplicationRecord
 
     has_many :events, through: :userchoices
     has_many :choices, through: :userchoices
+
+
 end

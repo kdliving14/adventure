@@ -8,24 +8,27 @@ import StoryPick from "./components/StoryPick";
 import LogSign from "./components/LogSign";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import Chapter from "./components/Chapter"
+import Chapter from "./components/Chapter";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [userStories, setUserStories] = useState([])
   const [userChoices, setUserchoices] = useState([])
+  const [errors, setErrors] = useState(false)
 
   useEffect(()=>{    
     fetch("/me").then((res) => {
-      if(res.ok){res.json().then((currentUser)=>setCurrentUser(currentUser))
-      }})
+      if(res.ok){res.json().then((currentUser)=>setCurrentUser(currentUser))}
+      else{res.json().then(data => setErrors(data.error))}})
     fetch("/userstories").then((res)=>{
-      if(res.ok){res.json().then((stories)=>setUserStories(stories))}})
+      if(res.ok){res.json().then((stories)=>setUserStories(stories))}
+      else{res.json().then(data => setErrors(data.error))}})
     fetch("/userchoices").then((res) => {
-      if(res.ok){res.json().then((userchoices)=>setUserchoices(userchoices))}})
+      if(res.ok){res.json().then((userchoices)=>setUserchoices(userchoices))}
+      else{res.json().then(data => setErrors(data.error))}})
     }, []); 
 
-  return(<div className="bg-black min-h-screen ">
+  return(<div className="bg-gradient-to-b from-black to-red-900 min-h-screen">
     {currentUser ? 
     <div>
       <Navbar 
@@ -33,7 +36,10 @@ function App() {
         name = {currentUser.name} 
         image={currentUser.image_url}
       />
-      <Routes>
+
+      {errors ? <h1>{errors}</h1>: null}
+
+        <Routes>
             <Route index element={
               <Home left_off={currentUser.left_off}/>}
             />
@@ -72,22 +78,6 @@ function App() {
     </div>}
     <br></br>
     <br></br>
-    <br></br>
-    <br></br>
-    {/* <footer className="fixed bottom-0 z-20 w-full items-center bg-zinc-900 justify-between ">
-      <ul className="flex flex-wrap text-center mt-1 text-sm text-gray-400">
-          <li className="flex-1"> 
-            <a href="https://www.linkedin.com/in/karter-livingston/" target="_blank" rel="noreferrer" className="mr-4 hover:underline">LinkedIn</a>
-          </li>
-          <li className="flex-1">
-            <a href="https://github.com/kdliving14" target="_blank" rel="noreferrer" className="mr-4 hover:underline">Github</a>
-          </li>
-          <li className="flex-1">
-              <a href="https://dev.to/kdliving14" target="_blank" rel="noreferrer" className="mr-4 hover:underline">Blog</a>
-          </li>
-      </ul>
-  </footer> */}
-
   </div>)
   }
 

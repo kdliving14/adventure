@@ -1,5 +1,10 @@
 import { useNavigate } from "react-router-dom"
 
+import User from "./images/user.png"
+import Linkedin from "./images/linkedin.png"
+import Github from "./images/github.png"
+import Blog from "./images/dev.png"
+
 function Profile({setCurrentUser, name, username, image_url, stories, user_id})
 {
     const navigate = useNavigate()
@@ -44,9 +49,14 @@ function Profile({setCurrentUser, name, username, image_url, stories, user_id})
     }
 
     return(<div className="text-center grid grid-cols-2 pt-10">
-        
-        <div className="m-auto w-48 p-2 rounded-lg border shadow-md text-white bg-zinc-900 border-gray-700">
-            <img className="" src = {image_url} alt={name}/>
+        <div className="m-auto w-48 p-2 rounded-lg border shadow-md text-white bg-black border-gray-700">
+            {image_url==="" ? 
+                  <div className="inline-flex relative justify-center items-center">
+                    <img src={User} alt="User"/>
+                  </div> 
+                  : 
+                  <img src={image_url} alt="user"/>
+                }  
             <p>Name: {name}</p>
             <p>Username: {username}</p>
             <button 
@@ -60,7 +70,7 @@ function Profile({setCurrentUser, name, username, image_url, stories, user_id})
         <div>
             <p>Stories:</p>
             {stories?.map((story)=>
-                <div className="m-auto p-2 w-32 rounded-lg border shadow-md text-white text-center bg-zinc-900 border-gray-700" key={story.id}>
+                <div className="m-auto p-2 w-32 rounded-lg border shadow-md text-white text-center bg-black border-gray-700" key={story.id}>
                     <p className="text-white">{story.story.name}</p>
                     <button 
                         name={story.id}
@@ -72,22 +82,22 @@ function Profile({setCurrentUser, name, username, image_url, stories, user_id})
             <br></br>
         </div>}
         <br></br>
-        <div className="m-auto w-32 rounded-lg border text-white bg-zinc-900 border-gray-700 ">
+        <div className="m-auto w-32 rounded-lg border text-white bg-black border-gray-700 ">
             <p>Creator Links:</p>
-            <ul className="text-sm text-gray-400">
-                <li> 
-                    <a href="https://www.linkedin.com/in/karter-livingston/" target="_blank" rel="noreferrer" className="hover:underline">LinkedIn</a>
-                </li>
-                <li>
-                    <a href="https://github.com/kdliving14" target="_blank" rel="noreferrer" className="hover:underline">Github</a>
-                </li>
-                <li>
-                    <a href="https://dev.to/kdliving14" target="_blank" rel="noreferrer" className="hover:underline">Blog</a>
-                </li>
-            </ul>
+            <div className="flex flex-wrap justify-between items-center px-2 py-2">
+                    <a href="https://www.linkedin.com/in/karter-livingston/" target="_blank" rel="noreferrer" className="hover:underline">
+                        <img src={Linkedin} alt="LinkedIn" className="w-7"/>
+                    </a>
+                    <a href="https://github.com/kdliving14" target="_blank" rel="noreferrer" className="hover:underline">
+                        <img src={Github} alt="Github" className="w-7"/>
+                    </a>
+                    <a href="https://dev.to/kdliving14" target="_blank" rel="noreferrer" className="hover:underline">
+                        <img src={Blog} alt="Blog" className="w-7"/>
+                    </a>
+            </div>
         </div>
-        </div>
-        </div>)
+    </div>
+ </div>)
 }
 
 export default Profile
