@@ -22,7 +22,7 @@ function StoryCard({title, description, image_url, trigger_warnings, user_id, st
         }
     }
     
-    return(<div className="m-auto px-2 py-3 w-96 rounded-lg border shadow-md text-white bg-zinc-900 border-gray-700 justify-between">
+    return(<div className="m-auto px-2 py-3 w-96 rounded-lg border shadow-md text-white bg-black border-gray-700 justify-between">
         <img 
             className="object-contain h-50 w-100 mx-auto my-auto rounded-lg"
             src={image_url === "" ? "https://protkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg" 

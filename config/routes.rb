@@ -6,15 +6,13 @@ Rails.application.routes.draw do
   resources :events, only: [:index, :show]
   resources :userstories, only: [:index, :show, :create, :destroy]
   resources :stories, only: [:index]
-  resources :users, except: [:show]
+  resources :users, only: [:create, :destroy]
   
   post "/login", to: "sessions#create" 
   delete "/logout", to: "sessions#destroy"
 
-  patch "/update", to: "users#update"
   patch "/chosen", to: "users#choose"
 
   get "/me", to: "users#show"
-  get "/me/userchoices", to: "userchoices#index"
 
 end
