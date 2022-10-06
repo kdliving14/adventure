@@ -19,6 +19,8 @@ function Chapter({event_id, userstory, story_id}){
 
     function handleClick(e){
         e.preventDefault()
+        console.log("Next id/left off: ",e.target.value)
+        console.log("choice id",e.target.name)
 
         fetch("/chosen", {
             method: "PATCH",
@@ -38,17 +40,12 @@ function Chapter({event_id, userstory, story_id}){
         })
     }
 
-    return <div>
+    return <div className="mt-10">
             <br></br>
-                <div className="m-auto px-2 py-3 w-96 rounded-lg border shadow-md text-white bg-black border-gray-700 justify-between">
-                <img 
-                    className="object-contain h-50 w-100 mx-auto my-auto rounded-lg"
-                    src={image_url === "" 
-                        ? "https://protkd.com/wp-content/uploads/2017/04/default-image-620x600.jpg" 
-                        : image_url} 
-                    alt="event"/>
-                <br></br>
-                <h1>{name}</h1>
+                <div className="m-auto px-5 py-5 w-1/2 rounded-lg border shadow-md text-white bg-black border-gray-700 justify-between">
+                {image_url === "" ? null : <div><img className="object-contain w-96 m-auto rounded-lg" src={image_url} alt="event"/><br></br></div>}
+                
+                <h1 className="text-center text-xl font-bold italic">{name}</h1>
                 <br></br>
                 <p className="whitespace-pre-line">{long_description}</p>
                 <div>
