@@ -15,7 +15,7 @@ function Profile({setCurrentUser, name, username, image_url, stories, user_id})
                 method:'DELETE',
                 headers: {'Content-Type': 'application/json'}
                 })
-            fetch("/chosen", {
+            .then(fetch("/chosen", {
                 method: "PATCH",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({ left_off:null })
@@ -23,8 +23,9 @@ function Profile({setCurrentUser, name, username, image_url, stories, user_id})
                             if(res.ok){ 
                                 alert("Your story progress has been reset.")
                                 window.location.reload();
-                                // navigate('/stories')
-                            }})
+                            }else{
+                                res.json().then(res=>console.log(res))
+                            }}))
         }
         else {alert("Story progress reset canceled.")}
     }
@@ -48,8 +49,8 @@ function Profile({setCurrentUser, name, username, image_url, stories, user_id})
         }
     }
 
-    return(<div className="text-center grid grid-cols-2 pt-10">
-        <div className="m-auto w-48 p-2 rounded-lg border shadow-md text-white bg-black border-gray-700">
+    return(<div>
+        <div className="text-center m-auto w-80 mt-10 p-5 rounded-lg border shadow-md text-white bg-black border-gray-700">
             {image_url==="" ? 
                   <div className="inline-flex relative justify-center items-center">
                     <img src={User} alt="User"/>
@@ -57,42 +58,41 @@ function Profile({setCurrentUser, name, username, image_url, stories, user_id})
                   : 
                   <img src={image_url} alt="user"/>
                 }  
-            <p>Name: {name}</p>
-            <p>Username: {username}</p>
+            <p className="pt-4 text-lg">Name: {name}</p>
+            <p className="p-4 text-lg">Username: {username}</p>
             <button 
-                className="text-black font-medium rounded-lg text-sm px-2.5 py-2 text-center h-10 bg-gray-100 hover:bg-gray-500"
+                className="text-black font-medium rounded-lg text-large px-2.5 py-2 text-center h-10 bg-gray-100 hover:bg-gray-500"
                 onClick={()=>{handleDeleteAccount()}}>
                 Delete Account
             </button>
         </div>
+        <br></br>
         <div>
         {stories.length===0 ? null : 
         <div>
-            <p>Stories:</p>
             {stories?.map((story)=>
-                <div className="m-auto p-2 w-32 rounded-lg border shadow-md text-white text-center bg-black border-gray-700" key={story.id}>
-                    <p className="text-white">{story.story.name}</p>
+                <div className="m-auto p-4 w-48 rounded-lg border shadow-md text-white text-center bg-black border-gray-700" key={story.id}>
+                    <p className="text-white pb-2">{story.story.name}</p>
                     <button 
                         name={story.id}
-                        className="text-black font-medium rounded-lg text-sm px-2.5 py-2 text-center mr-0 bg-gray-100 hover:bg-gray-500"
+                        className="text-black font-medium rounded-lg text-large px-2.5 py-2 text-center mr-0 bg-gray-100 hover:bg-gray-500"
                         onClick={(e)=>{handleReset(e)}}>
                         Reset Progress
                     </button>
                 </div>)}
-            <br></br>
         </div>}
         <br></br>
-        <div className="m-auto w-32 rounded-lg border text-white bg-black border-gray-700 ">
+        <div className="text-center m-auto w-48 pt-5 rounded-lg border text-white bg-black border-gray-700 ">
             <p>Creator Links:</p>
-            <div className="flex flex-wrap justify-between items-center px-2 py-2">
+            <div className="flex flex-wrap justify-between items-center px-5 pb-5 pt-3">
                     <a href="https://www.linkedin.com/in/karter-livingston/" target="_blank" rel="noreferrer" className="hover:underline">
-                        <img src={Linkedin} alt="LinkedIn" className="w-7"/>
+                        <img src={Linkedin} alt="LinkedIn" className="w-10"/>
                     </a>
                     <a href="https://github.com/kdliving14" target="_blank" rel="noreferrer" className="hover:underline">
-                        <img src={Github} alt="Github" className="w-7"/>
+                        <img src={Github} alt="Github" className="w-10"/>
                     </a>
                     <a href="https://dev.to/kdliving14" target="_blank" rel="noreferrer" className="hover:underline">
-                        <img src={Blog} alt="Blog" className="w-7"/>
+                        <img src={Blog} alt="Blog" className="w-10"/>
                     </a>
             </div>
         </div>

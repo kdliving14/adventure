@@ -24,7 +24,7 @@ function Navbar({setCurrentUser, image}) {
     }
 
     return (
-          <nav className="bg-black">
+          <nav className="pt-2">
             <div className="flex items-center">
                 <a className="m-auto bg-transparent cursor-pointer" href={`/`}>
                     <img src={Home} alt="Home" className="w-8"/>
@@ -34,13 +34,13 @@ function Navbar({setCurrentUser, image}) {
                 </a>
                 
                 <a className="m-auto bg-transparent cursor-pointer" href={`/profile`}> 
-                  <div className="w-10 h-10 m-auto">
+                  <div className="m-auto">
                     {image==="" ? 
-                      <div className="inline-flex items-center h-10">
-                        <img src={User} alt="User" className="w-8"/>
+                      <div className="inline-flex items-center">
+                        <img src={User} alt="User" className="w-9 pt-1"/>
                       </div> 
                       : 
-                      <img className="m-auto h-8" src={image} alt="user"/>
+                      <img className="m-auto h-9" src={image} alt="user"/>
                     }
                   </div>
                 </a>
