@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  namespace :api do
     resources :userchoices, only: [:index, :show, :create, :destroy]
     resources :choices, only: [:index, :show]
     resources :inventories, only: [:index, :create]
@@ -14,4 +15,6 @@ Rails.application.routes.draw do
     patch "/chosen", to: "userstories#choose"
 
     get "/me", to: "users#show"
+  end
+  get "*path", to: "fallback#index", constraints ->(req) { !req.xhr? && req.format.html? }
 end
