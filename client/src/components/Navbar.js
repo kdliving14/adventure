@@ -40,7 +40,7 @@ function Navbar({setCurrentUser, image}) {
                         <img src={User} alt="User" className="w-9 pt-1"/>
                       </div> 
                       : 
-                      <img className="m-auto h-9" src={image} alt="user"/>
+                      <img className="m-auto h-9 rounded-full" src={image} alt="user"/>
                     }
                   </div>
                 </a>

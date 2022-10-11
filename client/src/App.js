@@ -20,13 +20,18 @@ function App() {
     fetch("/me").then((res) => {
       if(res.ok){res.json().then((currentUser)=>setCurrentUser(currentUser))}
       else{res.json().then(data => setErrors(data.error))}})
+    }, []); 
+
+  useEffect(()=>{
     fetch("/userstories").then((res)=>{
-      if(res.ok){res.json().then((stories)=>setUserStories(stories))}
+      if(res.ok){res.json().then((stories)=>{
+        setUserStories(stories)
+      })}
       else{res.json().then(data => setErrors(data.error))}})
     fetch("/userchoices").then((res) => {
       if(res.ok){res.json().then((userchoices)=>setUserchoices(userchoices))}
       else{res.json().then(data => setErrors(data.error))}})
-    }, []); 
+  }, [currentUser]);
 
   return(<div className="bg-gradient-to-b from-black to-red-900 min-h-screen">
     {currentUser ? 
@@ -41,7 +46,7 @@ function App() {
 
         <Routes>
             <Route index element={
-              <Home left_off={currentUser.left_off}/>}
+              <Home/>}
             />
             <Route path="/profile" element={
               <Profile 
@@ -55,7 +60,6 @@ function App() {
               />
             <Route path="/events" element={
               <Chapter 
-                      event_id={currentUser.left_off === null ? 1 : currentUser.left_off} 
                       user_id={currentUser.id}
                       userstory={userStories}
                       story_id={1}/>}

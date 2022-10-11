@@ -7,7 +7,7 @@ function StoryCard({title, description, image_url, trigger_warnings, user_id, st
     function handleClick(e){
         e.preventDefault()
 
-        if(userstories?.find(e => e.story.id === story_id)){
+        if(userstories?.find(e => e.story_id === story_id)){
             navigate("/events")
         }
         else{

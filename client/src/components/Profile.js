@@ -72,7 +72,7 @@ function Profile({setCurrentUser, name, username, image_url, stories, user_id})
         <div>
             {stories?.map((story)=>
                 <div className="m-auto p-4 w-48 rounded-lg border shadow-md text-white text-center bg-black border-gray-700" key={story.id}>
-                    <p className="text-white pb-2">{story.story.name}</p>
+                    <p className="text-white pb-2">{story.story_name}</p>
                     <button 
                         name={story.id}
                         className="text-black font-medium rounded-lg text-large px-2.5 py-2 text-center mr-0 bg-gray-100 hover:bg-gray-500"

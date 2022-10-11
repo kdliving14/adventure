@@ -13,16 +13,7 @@ u1 = User.create(
     username:"K", 
     password:"test", 
     name:"Karter", 
-    image_url:"", 
-    left_off: 2
-)
-
-u2 = User.create(
-    username:"TEST", 
-    password:"test", 
-    name:"TEST", 
-    image_url:"https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80", 
-    left_off: 1
+    image_url:""
 )
 
 puts "Creating Stories"
@@ -41,7 +32,8 @@ puts "Creating User Stories"
 
 us1 = Userstory.create(
     user_id: u1.id, 
-    story_id: s1.id
+    story_id: s1.id,
+    left_off: 2
 )
 
 puts "Creating Events"

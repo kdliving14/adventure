@@ -1,5 +1,7 @@
 class UserstorySerializer < ActiveModel::Serializer
-  attributes :id
-  has_one :user
-  has_one :story
+  attributes :id, :left_off, :user_id, :story_id, :story_name
+
+  def story_name
+    object.story.name
+  end
 end

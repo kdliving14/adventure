@@ -19,11 +19,11 @@ class UsersController < ApplicationController
         render json: @current_user
     end
 
-    def choose
-        user = @current_user
-        user.update!(c_param)
-        render json: @current_user
-    end
+    # def choose
+    #     user = @current_user
+    #     user.update!(c_param)
+    #     render json: @current_user
+    # end
 
     def destroy
         @current_user.destroy
@@ -33,11 +33,11 @@ class UsersController < ApplicationController
     private
 
     def u_params
-        params.permit(:username, :name, :password, :image_url, :left_off)
+        params.permit(:username, :name, :password, :image_url)
     end
 
-    def c_param
-        params.permit(:left_off)
-    end
+    # def c_param
+    #     params.permit(:left_off)
+    # end
 
 end
