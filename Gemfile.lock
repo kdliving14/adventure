@@ -173,7 +173,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   bcrypt (~> 3.1.7)
-  bootsnap
+  bootsnap (>= 1.4.4)
   debug
   pg (~> 1.1)
   puma (~> 5.0)
