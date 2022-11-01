@@ -58,13 +58,13 @@ function App() {
                       stories={userStories} 
                       userchoices={userChoices}/>}
               />
-            <Route path="/events" element={
+            <Route path="/chapters" element={
               <Chapter 
                       user_id={currentUser.id}
                       userstory={userStories}
                       story_id={1}/>}
                       />
-            <Route path="/stories" element={
+            <Route path="/story" element={
               <StoryPick 
                       user_id={currentUser.id} 
                       userstories ={userStories}
