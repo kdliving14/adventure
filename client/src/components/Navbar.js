@@ -29,7 +29,7 @@ function Navbar({setCurrentUser, image}) {
                 <a className="m-auto bg-transparent cursor-pointer" href={`/`}>
                     <img src={Home} alt="Home" className="w-8"/>
                 </a>
-                <a className="m-auto bg-transparent cursor-pointer" href={`/stories`}> 
+                <a className="m-auto bg-transparent cursor-pointer" href={`/story`}> 
                   <img src={Story} alt="Story" className="h-7"/>
                 </a>
                 
