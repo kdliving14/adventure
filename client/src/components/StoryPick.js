@@ -11,6 +11,8 @@ function StoryPick({user_id, userstories, setUserStories}){
           if(res.ok){res.json().then((stories)=>setStories(stories))}})
       }, []);
 
+      console.log("Test")
+
     return(<div>
         <br></br>
         {stories.map((story)=>(
