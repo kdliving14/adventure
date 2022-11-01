@@ -8,14 +8,14 @@ function StoryCard({title, description, image_url, trigger_warnings, user_id, st
         e.preventDefault()
 
         if(userstories?.find(e => e.story_id === story_id)){
-            navigate("/events")
+            navigate("/chapters")
         }
         else{
             fetch("/userstories", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({ user_id:user_id, story_id:story_id })
-            }).then((data)=>{setUserStories(data); window.location.reload()}).then(navigate("/events"))
+                body: JSON.stringify({ user_id:user_id, story_id:story_id, left_off:0})
+            }).then((data)=>{setUserStories(data); window.location.reload()}).then(navigate("/chapters"))
         }
     }
     

@@ -16,7 +16,7 @@ function Home(){
 
     function handleContinue(){navigate("/events")}
 
-    function handleNewStory(){navigate(`/stories`)}
+    function handleNewStory(){navigate(`/story`)}
 
     return(<div className="mx-5 justify-between text-center">
         <br></br>
