@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 
-import User from "./images/user.png"
+
 import Linkedin from "./images/linkedin.png"
 import Github from "./images/github.png"
 import Blog from "./images/dev.png"
@@ -53,7 +53,9 @@ function Profile({setCurrentUser, name, username, image_url, stories, user_id})
         <div className="text-center m-auto w-80 mt-10 p-5 rounded-lg border shadow-md text-white bg-black border-gray-700">
             {image_url==="" ? 
                   <div className="inline-flex relative justify-center items-center">
-                    <img src={User} alt="User"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-8 h-8">
+                          <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
+                        </svg>
                   </div> 
                   : 
                   <img src={image_url} alt="user"/>
