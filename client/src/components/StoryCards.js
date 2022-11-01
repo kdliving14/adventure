@@ -8,7 +8,7 @@ function StoryCard({title, description, image_url, trigger_warnings, user_id, st
         e.preventDefault()
 
         if(userstories?.find(e => e.story_id === story_id)){
-            navigate("/events")
+            navigate("/chapters")
         }
         else{
             fetch("/userstories", {
