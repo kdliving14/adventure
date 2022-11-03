@@ -22,7 +22,7 @@ function Profile({setCurrentUser, name, username, image_url, stories, user_id})
                 }).then(res => {
                             if(res.ok){ 
                                 alert("Your story progress has been reset.")
-                                window.location.reload();
+                                navigate('/');
                             }else{
                                 res.json().then(res=>console.log(res))
                             }}))

@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-// import Bad from "./images/bad_end.png"
+
+// import useSound from 'use-sound';
+
+// import thud from "./sounds/thud_01.m4a";
 
 function Chapter({userstory, story_id}){
 
     const [chapter, setChapter] = useState([])
     const {image_url, name, long_description, choices, id} = chapter
 
-    const story = [...userstory].find(e => e.story_id === story_id)
+    // const [play] = useSound(thud)
 
-    // console.log(story)
+    const story = [...userstory].find(e => e.story_id === story_id)
   
     if(story.left_off === 0 || story.left_off === null){story.left_off = 1}
 
@@ -19,6 +22,10 @@ function Chapter({userstory, story_id}){
             console.log(res)
         }})// eslint-disable-next-line 
     }, [userstory]);
+
+    // setTimeout(play, chapter.delay);
+
+    // console.log(chapter)
 
     function handleClick(e){
         e.preventDefault()
